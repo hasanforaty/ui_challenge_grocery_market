@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grocery_market/database/fake_database.dart';
+import 'package:grocery_market/route.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -251,50 +252,58 @@ class SellItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Hero(
       tag: name,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Padding(
-          padding:
-              const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.asset(imageAsset),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8),
-                child: Text(
-                  name,
-                  textAlign: TextAlign.start,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge
-                      ?.copyWith(fontWeight: FontWeight.bold),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).pushNamed(MyRoute.detail);
+        },
+        child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Padding(
+            padding:
+                const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(imageAsset),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: RichText(
-                  text: TextSpan(
-                      text: price,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: Colors.red),
-                      children: [
-                        TextSpan(
-                          text: "/kg",
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Colors.black.withOpacity(0.5),
-                                  ),
-                        ),
-                      ]),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    name,
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
                 ),
-              )
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: RichText(
+                    text: TextSpan(
+                        text: price,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: Colors.red),
+                        children: [
+                          TextSpan(
+                            text: "/kg",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: Colors.black.withOpacity(0.5),
+                                ),
+                          ),
+                        ]),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
