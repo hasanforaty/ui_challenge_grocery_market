@@ -10,7 +10,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData.light().copyWith(
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: Colors.black,
+          shape: CircularNotchedRectangle(),
+          elevation: 10,
+        ),
+      ),
       initialRoute: MyRoute.home,
       onGenerateRoute: MyRoute.generateRoute,
     );
