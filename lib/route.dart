@@ -14,7 +14,10 @@ class MyRoute {
         });
       case detail:
         return MaterialPageRoute(builder: (context) {
-          return const DetailPage();
+          return const DetailPage(
+            name: "",
+            imageAsset: "",
+          );
         });
       default:
         return MaterialPageRoute(builder: (context) {

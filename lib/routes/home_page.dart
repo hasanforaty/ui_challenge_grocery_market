@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grocery_market/database/fake_database.dart';
 import 'package:grocery_market/route.dart';
+import 'package:like_button/like_button.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -224,7 +225,7 @@ class _ItemsList extends StatelessWidget {
         children: [
           for (String key in list.keys)
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(5),
               child: SellItems(
                 name: key,
                 price: (Random().nextInt(30) + 3).toString(),
@@ -282,24 +283,30 @@ class SellItems extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: RichText(
-                    text: TextSpan(
-                        text: price,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(color: Colors.red),
-                        children: [
-                          TextSpan(
-                            text: "/kg",
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                            text: price,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
-                                ?.copyWith(
-                                  color: Colors.black.withOpacity(0.5),
-                                ),
-                          ),
-                        ]),
+                                ?.copyWith(color: Colors.red),
+                            children: [
+                              TextSpan(
+                                text: "/kg",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: Colors.black.withOpacity(0.5),
+                                    ),
+                              ),
+                            ]),
+                      ),
+                      const LikeButton()
+                    ],
                   ),
                 )
               ],

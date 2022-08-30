@@ -10,5 +10,6 @@ const list = <String, String>{
   "Orange": "images/orange.jpg",
   "Apple": "images/apple.jpg",
   "Fish Salad": "images/fish_salad.jpg",
-  "Vegetables": "images/vegetable.jpg"
+  "Vegetables": "images/vegetable.jpg",
+  "Fruit": "images/apple.jpg"
 };
