@@ -14,9 +14,11 @@ class MyRoute {
         });
       case detail:
         return MaterialPageRoute(builder: (context) {
-          return const DetailPage(
-            name: "",
-            imageAsset: "",
+          var argument = settings.arguments as SecondPageArgument;
+          return DetailPage(
+            name: argument.name,
+            imageAsset: argument.imageAsset,
+            price: argument.price,
           );
         });
       default:
@@ -25,4 +27,16 @@ class MyRoute {
         });
     }
   }
+}
+
+class SecondPageArgument {
+  String name;
+  String imageAsset;
+  String price;
+
+  SecondPageArgument({
+    required this.name,
+    required this.imageAsset,
+    required this.price,
+  });
 }

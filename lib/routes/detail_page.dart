@@ -2,12 +2,19 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:grocery_market/widgets/change_cart.dart';
+import 'package:grocery_market/widgets/price_tag.dart';
 import 'package:like_button/like_button.dart';
 
 class DetailPage extends StatelessWidget {
   final String name;
   final String imageAsset;
-  const DetailPage({Key? key, required this.name, required this.imageAsset})
+  final String price;
+  const DetailPage(
+      {Key? key,
+      required this.name,
+      required this.imageAsset,
+      required this.price})
       : super(key: key);
 
   @override
@@ -43,42 +50,63 @@ class DetailPage extends StatelessWidget {
           size: 40,
         ),
       ),
-      body: _DetailPageBody(),
+      body: _DetailPageBody(
+        name: name,
+        imageAsset: imageAsset,
+        price: price,
+      ),
     );
   }
 }
 
 class _DetailPageBody extends StatelessWidget {
-  const _DetailPageBody({Key? key}) : super(key: key);
+  final String name;
+  final String imageAsset;
+  final String price;
+  const _DetailPageBody(
+      {Key? key,
+      required this.name,
+      required this.imageAsset,
+      required this.price})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: const [
+      children: [
         Positioned(
           top: 0,
           left: 0,
-          child: _Title(),
+          child: _Title(
+            name: name,
+          ),
         ),
         Positioned(
           top: 60,
           left: 0,
           right: double.minPositive,
-          child: _Pic(),
+          child: _Pic(
+            imageAsset: imageAsset,
+            name: name,
+          ),
         ),
         Positioned(
           top: 320,
           left: 0,
           right: double.minPositive,
-          child: _Description(),
-        )
+          child: _Description(
+            price: price,
+          ),
+        ),
+        const Positioned(bottom: 60, left: 0, right: 0, child: AddCartButton())
       ],
     );
   }
 }
 
 class _Title extends StatelessWidget {
-  const _Title({Key? key}) : super(key: key);
+  final String name;
+  const _Title({Key? key, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +115,7 @@ class _Title extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            "Orance",
+            name,
             style: Theme.of(context)
                 .textTheme
                 .headline6
@@ -104,21 +132,29 @@ class _Title extends StatelessWidget {
 }
 
 class _Pic extends StatelessWidget {
-  const _Pic({Key? key}) : super(key: key);
+  final String imageAsset;
+  final String name;
+  const _Pic({Key? key, required this.imageAsset, required this.name})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-        tag: "Orange",
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(1),
-          child: Image.asset("images/orange.jpg"),
-        ));
+    return SizedBox(
+      height: 260,
+      width: double.infinity,
+      child: Hero(
+          tag: name,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(1),
+            child: Image.asset(imageAsset),
+          )),
+    );
   }
 }
 
 class _Description extends StatelessWidget {
-  const _Description({Key? key}) : super(key: key);
+  final String price;
+  const _Description({Key? key, required this.price}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +203,52 @@ class _Description extends StatelessWidget {
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            padding: const EdgeInsets.only(right: 10, left: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                PriceTag(
+                  price: price,
+                  fontWeight: FontWeight.w900,
+                ),
+                const SizedBox(
+                  width: 130,
+                  height: 40,
+                  child: ChangeCart(),
+                ),
+              ],
+            ),
+          )
         ],
+      ),
+    );
+  }
+}
+
+class AddCartButton extends StatelessWidget {
+  const AddCartButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      decoration: const BoxDecoration(
+        color: Color(0xff5B4F4A),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      child: Center(
+        child: Text(
+          "Add to Cart",
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium
+              ?.copyWith(color: Colors.white, fontWeight: FontWeight.w500),
+        ),
       ),
     );
   }

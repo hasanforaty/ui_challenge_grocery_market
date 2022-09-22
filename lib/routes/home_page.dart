@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grocery_market/database/fake_database.dart';
 import 'package:grocery_market/route.dart';
+import 'package:grocery_market/widgets/price_tag.dart';
 import 'package:like_button/like_button.dart';
 
 class HomePage extends StatelessWidget {
@@ -255,7 +256,9 @@ class SellItems extends StatelessWidget {
       tag: name,
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).pushNamed(MyRoute.detail);
+          Navigator.of(context).pushNamed(MyRoute.detail,
+              arguments: SecondPageArgument(
+                  name: name, imageAsset: imageAsset, price: price));
         },
         child: Card(
           shape:
@@ -287,28 +290,7 @@ class SellItems extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                            text: price,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(color: Colors.red),
-                            children: [
-                              TextSpan(
-                                text: "/kg",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                      color: Colors.black.withOpacity(0.5),
-                                    ),
-                              ),
-                            ]),
-                      ),
-                      const LikeButton()
-                    ],
+                    children: [PriceTag(price: price), const LikeButton()],
                   ),
                 )
               ],
