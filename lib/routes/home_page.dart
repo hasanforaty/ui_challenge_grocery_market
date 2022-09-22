@@ -266,9 +266,11 @@ class SellItems extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(imageAsset),
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(imageAsset),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
